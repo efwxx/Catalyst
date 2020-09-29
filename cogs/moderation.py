@@ -70,7 +70,7 @@ class Moderation(commands.Cog):
             return await ctx.send("You must specify a user")
         
         try: # Tries to ban user
-            await ctx.guild.ban(user, f"By {ctx.author} for {reason}" or f"By {ctx.author} for None Specified")
+            await ctx.guild.ban(user)
             await ctx.send(f"{user.mention} was cast out of heaven for {reason}.")
         except discord.Forbidden:
             return await ctx.send("Are you trying to ban someone higher than the bot")
