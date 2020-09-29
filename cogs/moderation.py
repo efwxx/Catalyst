@@ -51,7 +51,7 @@ async def mute(ctx, user, reason):
             return await ctx.send("I have no permissions to make #hell")
             
             
-class Moderation:
+class Moderation(commands.Cog):
     """Commands used to moderate your guild"""
     
     def __init__(self, bot):
@@ -113,7 +113,7 @@ class Moderation:
     @commands.command()
     async def unmute(self, ctx, user: Redeemed):
         """Unmutes a muted user"""
-        await user.remove_roles(discord.utils.get(ctx.guild.roles, name="Muted") # removes muted role
+        await user.remove_roles(discord.utils.get(ctx.guild.roles, name="Muted")) # removes muted role
         await ctx.send(f"{user.mention} has been unmuted")
 
     @commands.command()
