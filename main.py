@@ -29,7 +29,7 @@ bot = commands.Bot(
 
 # case_insensitive=True is used as the commands are case sensitive by default
 
-cogs = ['cogs.basic', 'cogs.embed', 'cogs.moderation']
+cogs = ['cogs.basic', 'cogs.embed', 'cogs.moderation', "cogs.fun"]
 
 
 @bot.event

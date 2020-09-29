@@ -45,10 +45,10 @@ async def mute(ctx, user, reason):
                       ctx.guild.me: discord.PermissionOverwrite(send_messages=True),
                       muted: discord.PermissionOverwrite(read_message_history=True)} # permissions for the channel
         try: # creates the channel and sends a message
-            channel = await ctx.create_channel('hell', overwrites=overwrites)
-            await channel.send("Welcome to hell.. You will spend your time here until you get unmuted. Enjoy the silence.")
+            channel = await ctx.create_channel('muted', overwrites=overwrites)
+            await channel.send("You have been muted. You will spend your time here until you get unmuted. Enjoy the silence.")
         except discord.Forbidden:
-            return await ctx.send("I have no permissions to make #hell")
+            return await ctx.send("I have no permissions to make #muted")
             
             
 class Moderation(commands.Cog):
@@ -71,13 +71,13 @@ class Moderation(commands.Cog):
         
         try: # Tries to ban user
             await ctx.guild.ban(user)
-            await ctx.send(f"{user.mention} was baned for: {reason}.")
+            await ctx.send(f"{user.mention} was banned for: {reason}.")
         except discord.Forbidden:
             return await ctx.send("Are you trying to ban someone higher than the bot")
 
     @commands.command()
     async def softban(self, ctx, user: Sinner=None, reason=None):
-        """Temporarily restricts access to heaven."""
+        """Temporarily restricts access to the server."""
         
         if not user: # checks if there is a user
             return await ctx.send("You must specify a user")
@@ -90,7 +90,7 @@ class Moderation(commands.Cog):
     
     @commands.command()
     async def mute(self, ctx, user: Sinner, reason=None):
-        """Gives them hell."""
+        """Mutes User."""
         await mute(ctx, user, reason or "treason") # uses the mute function
     
     @commands.command()
