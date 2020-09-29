@@ -42,7 +42,7 @@ async def on_ready():
     for cog in cogs:
         bot.load_extension(cog)
     return
-
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="For *"))
 
 @bot.command()
 async def slowmode(ctx, seconds: int):
