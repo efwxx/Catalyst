@@ -64,14 +64,14 @@ class Moderation(commands.Cog):
     @commands.command(aliases=["banish"])
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, user: Sinner=None, reason=None):
-        """Casts users out of heaven."""
+        """Bans a member from the server."""
         
         if not user: # checks if there is a user
             return await ctx.send("You must specify a user")
         
         try: # Tries to ban user
             await ctx.guild.ban(user)
-            await ctx.send(f"{user.mention} was cast out of heaven for {reason}.")
+            await ctx.send(f"{user.mention} was baned for: {reason}.")
         except discord.Forbidden:
             return await ctx.send("Are you trying to ban someone higher than the bot")
 
