@@ -45,6 +45,10 @@ class OsuCog(commands.Cog):
     @commands.command(name="maptrvivia")
     async def map_trivia_command(self, ctx):
         """osu! guess the beatmap!"""
+        def check(ms): # Sorry electro i stole this from your cog lmfao
+            # Look for the message sent in the same channel where the command was used
+            # As well as by the user who used the command.
+            return ms.channel == ctx.message.channel and ms.author == ctx.message.author
         curr_map = random.choice(OSU_QUESTIONS)
         # Making the embed for the beatmap.
         colour = {
@@ -58,6 +62,11 @@ class OsuCog(commands.Cog):
         embed.set_image(url = f"https://assets.ppy.sh/beatmaps/{curr_map['beatmapset_id']}/covers/cover.jpg")
         await ctx.send(embed=embed)
 
+        msg = await self.bot.wait_for('message', check=check)
+        if msg.content.lower() in curr_map["allowed_names"]:
+            await ctx.send("That's correct!")
+        else:
+            await ctx.send("Incorrect, shame on you!")
 
 def setup(bot):
     bot.add_cog(OsuCog(bot))
