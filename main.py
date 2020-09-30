@@ -29,7 +29,7 @@ bot = commands.Bot(
 
 # case_insensitive=True is used as the commands are case sensitive by default
 
-cogs = ['cogs.basic', 'cogs.embed', 'cogs.moderation', "cogs.fun"]
+cogs = ['cogs.basic', 'cogs.embed', 'cogs.moderation', 'cogs.fun']
 
 
 @bot.event
@@ -42,7 +42,7 @@ async def on_ready():
     for cog in cogs:
         bot.load_extension(cog)
     return
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="For *"))
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"28 servers!"))
 
 @bot.command()
 async def slowmode(ctx, seconds: int):

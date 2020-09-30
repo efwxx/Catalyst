@@ -138,7 +138,7 @@ class OsuCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    @commands.command(name="maptrivia")
+    @commands.command(name='maptrivia', description='an osu! map minigame')
     async def map_trivia_command(self, ctx):
         """osu! guess the beatmap!"""
         def check(ms): # Sorry electro i stole this from your cog lmfao
