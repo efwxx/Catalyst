@@ -116,22 +116,18 @@ class Embed(commands.Cog):
         # If cog is not specified by the user, we list all cogs and commands
 
         if cog == 'all':
+            commands_list = ''
             for cog in cogs:
                 # Get a list of all commands under each cog
 
                 cog_commands = self.bot.get_cog(cog).get_commands()
-                commands_list = ''
+                
                 for comm in cog_commands:
                     commands_list += f'**{comm.name}** \n *{comm.description}*\n'
-
-                # Add the cog's details to the embed.
-
-                help_embed.add_field(
-                    name=cog, value=commands_list, inline=False).add_field(
-                        name='\u200b', value='\u200b', inline=False)
-
-                # Also added a blank field '\u200b' is a whitespace character.
             pass
+            help_embed.add_field(
+                    name="Commands", value=commands_list, inline=False).add_field(
+                        name='\u200b', value='\u200b', inline=False)
         else:
 
             # If the cog was specified
