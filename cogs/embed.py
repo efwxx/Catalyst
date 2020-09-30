@@ -43,7 +43,7 @@ class Embed(commands.Cog):
 
     @commands.command(
         name='embed',
-        description='The embed command',
+        description='The embed command!',
     )
     async def embed_command(self, ctx):
 
@@ -123,7 +123,7 @@ class Embed(commands.Cog):
                 cog_commands = self.bot.get_cog(cog).get_commands()
                 
                 for comm in cog_commands:
-                    commands_list += f'**{comm.name}** \n *{comm.description}*\n'
+                    commands_list += f'**{comm.name}** \n *{comm.description}*\n\n'
             pass
             help_embed.add_field(
                     name="Commands", value=commands_list, inline=False).add_field(

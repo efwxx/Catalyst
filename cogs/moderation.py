@@ -61,7 +61,7 @@ class Moderation(commands.Cog):
         if isinstance(error, commands.BadArgument):
             await ctx.send(error)
             
-    @commands.command(name='ban', description='bans member from the server')
+    @commands.command(name='ban', description='bans member from the server\n')
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, user: Sinner=None, reason=None):
         """Bans a member from the server."""
@@ -75,7 +75,7 @@ class Moderation(commands.Cog):
         except discord.Forbidden:
             return await ctx.send("Are you trying to ban someone higher than the bot")
 
-    @commands.command(name='softban', description='Temporarily bans User')
+    @commands.command(name='softban', description='Temporarily bans User\n')
     async def softban(self, ctx, user: Sinner=None, reason=None):
         """Temporarily restricts access to the server."""
         
@@ -88,12 +88,12 @@ class Moderation(commands.Cog):
         except discord.Forbidden:
             return await ctx.send("Are you trying to soft-ban someone higher than the bot?")
     
-    @commands.command(name='mute', description='Mutes User')
+    @commands.command(name='mute', description='Mutes User\n')
     async def mute(self, ctx, user: Sinner, reason=None):
         """Mutes User."""
         await mute(ctx, user, reason) # uses the mute function
     
-    @commands.command(name='kick', description='Kicks a user')
+    @commands.command(name='kick', description='Kicks a user\n')
     async def kick(self, ctx, user: Sinner=None, reason=None):
         if not user: # checks if there is a user 
             return await ctx.send("You must specify a user")
@@ -103,20 +103,20 @@ class Moderation(commands.Cog):
         except discord.Forbidden:
             return await ctx.send("Are you trying to kick someone higher than the bot?")
 
-    @commands.command(name='purge', description='bulk deletes messages in a channel')
+    @commands.command(name='purge', description='bulk deletes messages in a channel\n')
     async def purge(self, ctx, limit: int):
         """Bulk deletes messages"""
         
         await ctx.purge(limit=limit + 1) # also deletes your own message
         await ctx.send(f"Bulk deleted `{limit}` messages") 
     
-    @commands.command(name='unmute', description='Unmutes a member', aliases=[''])
+    @commands.command(name='unmute', description='Unmutes a member\n')
     async def unmute(self, ctx, user: Redeemed):
         """Unmutes a muted user"""
         await user.remove_roles(discord.utils.get(ctx.guild.roles, name="Muted")) # removes muted role
         await ctx.send(f"{user.mention} has been unmuted")
 
-    @commands.command(name='block', description='Prevents a User from chatting in a specific channel.')
+    @commands.command(name='block', description='Prevents a User from chatting in a specific channel.\n')
     async def block(self, ctx, user: Sinner=None):
         """
         Blocks a user from chatting in current channel.
@@ -130,7 +130,7 @@ class Moderation(commands.Cog):
                                 
         await ctx.set_permissions(user, send_messages=False) # sets permissions for current channel
     
-    @commands.command(name='unblock', description='unblocks a user from chatting in a specific channel')
+    @commands.command(name='unblock', description='unblocks a user from chatting in a specific channel\n')
     async def unblock(self, ctx, user: Sinner=None):
         """Unblocks a user from current channel"""
                                 
@@ -139,7 +139,7 @@ class Moderation(commands.Cog):
         
         await ctx.set_permissions(user, send_messages=True) # gives back send messages permissions
 
-@commands.command(name='slowmode', description='limits the amount of messages sent in a specific timeframe')
+@commands.command(name='slowmode', description='limits the amount of messages sent in a specific timeframe\n')
 async def slowmode(ctx, seconds: int):
     await ctx.channel.edit(slowmode_delay=seconds)
     await ctx.send(
