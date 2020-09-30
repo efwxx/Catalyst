@@ -21,3 +21,5 @@ async def getname(ctx, member: discord.Member):
         img_data = r.content
     with open(f'{member.name}.png', 'wb') as f:
         f.write(img_data)
+
+hi discord!
