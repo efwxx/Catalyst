@@ -30,7 +30,7 @@ bot = commands.Bot(
 
 # case_insensitive=True is used as the commands are case sensitive by default
 
-cogs = ['cogs.fun', 'cogs.basic', 'cogs.embed', 'cogs.moderation']
+cogs = ['cogs.fun', 'cogs.basic', 'cogs.embed', 'cogs.moderation', "cogs.userinfo"]
 
 #cogs to be loaded later, 'cogs.userinfo' and 'cogs.music'
 
