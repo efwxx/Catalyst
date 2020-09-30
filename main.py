@@ -4,6 +4,7 @@ from discord.ext import commands
 import keep_alive
 import os
 import replit
+import requests
 
 
 def get_prefix(client, message):
@@ -29,8 +30,9 @@ bot = commands.Bot(
 
 # case_insensitive=True is used as the commands are case sensitive by default
 
-cogs = ['cogs.basic', 'cogs.embed', 'cogs.moderation', 'cogs.fun']
+cogs = ['cogs.fun', 'cogs.basic', 'cogs.embed', 'cogs.moderation']
 
+#cogs to be loaded later, 'cogs.userinfo' and 'cogs.music'
 
 @bot.event
 async def on_ready():
@@ -42,13 +44,27 @@ async def on_ready():
     for cog in cogs:
         bot.load_extension(cog)
     return
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"28 servers!"))
+    await bot.change_presence(
+        activity=discord.Activity(
+            type=discord.ActivityType.watching, name=f"28 servers!"))
+
 
 @bot.command()
 async def slowmode(ctx, seconds: int):
     await ctx.channel.edit(slowmode_delay=seconds)
     await ctx.send(
         f"Set the slowmode delay in this channel to {seconds} seconds!")
+
+
+#@bot.command(name='userinfo', description='gets info on a user')
+#async def getname(ctx, member: discord.Member):
+
+#    await ctx.send(f'User name: {member.name}, id: {member.id}')
+#
+#    with requests.get(member.avatar_url_as(format='png')) as r:
+#        img_data = r.content
+#    with open(f'{member.name}.png', 'wb') as f:
+#        f.write(img_data)
 
 
 # Start the server

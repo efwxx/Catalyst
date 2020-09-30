@@ -105,7 +105,7 @@ class Embed(commands.Cog):
         color_list = [c for c in colours.values()]
         help_embed = discord.Embed(
             title='Help', color=random.choice(color_list))
-        help_embed.set_thumbnail(url=self.bot.user.avatar_url)
+#        help_embed.set_thumbnail(url=self.bot.user.avatar_url)
         help_embed.set_footer(
             text=f'Requested by {ctx.message.author.name}',
             icon_url=self.bot.user.avatar_url)
@@ -122,7 +122,7 @@ class Embed(commands.Cog):
                 cog_commands = self.bot.get_cog(cog).get_commands()
                 commands_list = ''
                 for comm in cog_commands:
-                    commands_list += f'**{comm.name}** - *{comm.description}*\n'
+                    commands_list += f'**{comm.name}** \n *{comm.description}*\n'
 
                 # Add the cog's details to the embed.
 
