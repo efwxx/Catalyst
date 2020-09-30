@@ -61,7 +61,7 @@ class Moderation(commands.Cog):
         if isinstance(error, commands.BadArgument):
             await ctx.send(error)
             
-    @commands.command(aliases=["banish"])
+    @commands.command(name='ban', description='bans member from the server')
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, user: Sinner=None, reason=None):
         """Bans a member from the server."""
