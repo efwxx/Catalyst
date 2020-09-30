@@ -139,11 +139,12 @@ class Moderation(commands.Cog):
         
         await ctx.set_permissions(user, send_messages=True) # gives back send messages permissions
 
-@commands.command(name='slowmode', description='limits the amount of messages sent in a specific timeframe\n')
-async def slowmode(ctx, seconds: int):
-    await ctx.channel.edit(slowmode_delay=seconds)
-    await ctx.send(
-        f"Set the slowmode delay in this channel to {seconds} seconds!")                  
-                                
+    @commands.command(name='slowmode', description='limits the amount of messages sent in a specific timeframe')
+    async def slowmode(ctx, seconds: int):
+        await ctx.channel.edit(slowmode_delay=seconds)
+        await ctx.send(f"Set the slowmode delay in this channel to {seconds} seconds!") 
+
+
+
 def setup(bot):
     bot.add_cog(Moderation(bot))

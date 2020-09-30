@@ -9,7 +9,7 @@ class Userinfo(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.group(invoke_without_command=True, name='userinfo', description='Shows info on a user', aliases=['user', 'uinfo', 'info', 'ui'])
+    @commands.group(invoke_without_command=True, name='userinfo', description='Shows info on a user')
     async def userinfo(self, ctx, *, name=""):
         """Get user info."""
         if ctx.invoked_subcommand is None:

@@ -8,7 +8,7 @@ class Basic(commands.Cog):
 
     # Define a new command
     @commands.command(
-        name='ping', description='The ping command!\n', aliases=['p'])
+        name='ping', description='The ping command!\n')
     async def ping_command(self, ctx):
         start = d.timestamp(d.now())
         # Gets the timestamp when the command was used
@@ -30,7 +30,6 @@ class Basic(commands.Cog):
     @commands.command(
         name='say',
         description='The say command\n',
-        aliases=['repeat', 'parrot'],
         usage='<text>')
     async def say_command(self, ctx):
         # The 'usage' only needs to show the parameters

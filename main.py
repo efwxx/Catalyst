@@ -49,11 +49,11 @@ async def on_ready():
             type=discord.ActivityType.watching, name=f"28 servers!"))
 
 
-@bot.command()
-async def slowmode(ctx, seconds: int):
-    await ctx.channel.edit(slowmode_delay=seconds)
-    await ctx.send(
-        f"Set the slowmode delay in this channel to {seconds} seconds!")
+#@bot.command()
+#async def slowmode(ctx, seconds: int):
+#    await ctx.channel.edit(slowmode_delay=seconds)
+#    await ctx.send(
+#        f"Set the slowmode delay in this channel to {seconds} seconds!")
 
 
 #@bot.command(name='userinfo', description='gets info on a user')
