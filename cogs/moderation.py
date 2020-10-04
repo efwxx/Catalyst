@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from common import error_embed
 
 # This prevents staff members from being punished 
 class Sinner(commands.Converter):
@@ -9,7 +10,7 @@ class Sinner(commands.Converter):
         if not permission: # checks if user has the permission
             return argument # returns user object
         else:
-            raise commands.BadArgument("You cannot punish other staff members") # tells user that target is a staff member
+            raise commands.BadArgument("You cannot use these commands against staff members") # tells user that target is a staff member
 
 # Checks if you have a muted role
 class Redeemed(commands.Converter):
@@ -24,7 +25,7 @@ class Redeemed(commands.Converter):
 # Checks if there is a muted role on the server and creates one if there isn't
 async def mute(ctx, user, reason):
     role = discord.utils.get(ctx.guild.roles, name="Muted") # retrieves muted role returns none if there isn't 
-    hell = discord.utils.get(ctx.guild.text_channels, name="muted") # retrieves channel named hell returns none if there isn't
+    muted = discord.utils.get(ctx.guild.text_channels, name="muted") # retrieves channel named hell returns none if there isn't
     if not role: # checks if there is muted role
         try: # creates muted role 
             muted = await ctx.guild.create_role(name="Muted", reason="To use for muting")
@@ -38,18 +39,13 @@ async def mute(ctx, user, reason):
         await ctx.send(f"{user.mention} has been muted for {reason}")
     else:
         await user.add_roles(role) # adds already existing muted role
-        await ctx.send(f"{user.mention} has been sent to hell for {reason}")
+        await ctx.send(f"{user.mention} has been muted for {reason}")
        
-    if not muted: # checks if there is a channel named hell
+    if not muted: # checks if there is a channel named muted
         overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(read_message_history=False),
                       ctx.guild.me: discord.PermissionOverwrite(send_messages=True),
                       muted: discord.PermissionOverwrite(read_message_history=True)} # permissions for the channel
-        try: # creates the channel and sends a message
-            channel = await ctx.create_channel('muted', overwrites=overwrites)
-            await channel.send("You have been muted. You will spend your time here until you get unmuted. Enjoy the silence.")
-        except discord.Forbidden:
-            return await ctx.send("I have no permissions to make #muted")
-            
+
             
 class Moderation(commands.Cog):
     """Commands used to moderate your guild"""
@@ -67,26 +63,26 @@ class Moderation(commands.Cog):
         """Bans a member from the server."""
         
         if not user: # checks if there is a user
-            return await ctx.send("You must specify a user")
+            return await ctx.send(embed=error_embed(ctx,"You must specify a user"))
         
         try: # Tries to ban user
             await ctx.guild.ban(user)
             await ctx.send(f"{user.mention} was banned for: {reason}.")
         except discord.Forbidden:
-            return await ctx.send("Are you trying to ban someone higher than the bot")
+            return await ctx.send(embed=error_embed(ctx,"Are you trying to ban someone higher than the bot?"))
 
     @commands.command(name='softban', description='Temporarily bans User\n')
     async def softban(self, ctx, user: Sinner=None, reason=None):
         """Temporarily restricts access to the server."""
         
         if not user: # checks if there is a user
-            return await ctx.send("You must specify a user")
+            return await ctx.send(embed=error_embed(ctx,"You must specify a user"))
         
         try: # Tries to soft-ban user
             await ctx.guild.ban(user, f"By {ctx.author} for {reason}" or f"By {ctx.author} for None Specified") 
             await ctx.guild.unban(user, "Temporarily Banned")
         except discord.Forbidden:
-            return await ctx.send("Are you trying to soft-ban someone higher than the bot?")
+            return await ctx.send(embed=error_embed(ctx,"Are you trying to soft-ban someone higher than the bot?"))
     
     @commands.command(name='mute', description='Mutes User\n')
     async def mute(self, ctx, user: Sinner, reason=None):
@@ -96,12 +92,12 @@ class Moderation(commands.Cog):
     @commands.command(name='kick', description='Kicks a user\n')
     async def kick(self, ctx, user: Sinner=None, reason=None):
         if not user: # checks if there is a user 
-            return await ctx.send("You must specify a user")
+            return await ctx.send(embed=error_embed(ctx,"You must specify a user"))
         
         try: # tries to kick user
             await ctx.guild.kick(user, f"By {ctx.author} for {reason}" or f"By {ctx.author} for None Specified") 
         except discord.Forbidden:
-            return await ctx.send("Are you trying to kick someone higher than the bot?")
+            return await ctx.send(embed=error_embed(ctx,"Are you trying to kick someone higher than the bot?"))
 
     @commands.command(name='purge', description='bulk deletes messages in a channel\n')
     async def purge(self, ctx, limit: int):
@@ -126,7 +122,7 @@ class Moderation(commands.Cog):
         """
                                 
         if not user: # checks if there is user
-            return await ctx.send("You must specify a user")
+            return await ctx.send(embed=error_embed(ctx,"You must specify a user"))
                                 
         await ctx.set_permissions(user, send_messages=False) # sets permissions for current channel
     
@@ -135,15 +131,13 @@ class Moderation(commands.Cog):
         """Unblocks a user from current channel"""
                                 
         if not user: # checks if there is user
-            return await ctx.send("You must specify a user")
-        
+            return await ctx.send(embed=error_embed(ctx,"You must specify a user"))
         await ctx.set_permissions(user, send_messages=True) # gives back send messages permissions
 
     @commands.command(name='slowmode', description='limits the amount of messages sent in a specific timeframe')
-    async def slowmode(ctx, seconds: int):
-        await ctx.channel.edit(slowmode_delay=seconds)
-        await ctx.send(f"Set the slowmode delay in this channel to {seconds} seconds!") 
-
+    async def slowmode(self, ctx, seconds: int):
+      await ctx.channel.edit(slowmode_delay=seconds)
+      await ctx.send(f"Set the slowmode delay in this channel to {seconds} seconds!")
 
 
 def setup(bot):

@@ -93,7 +93,6 @@ class Embed(commands.Cog):
     @commands.command(
         name='help',
         description='The help command!',
-        aliases=['commands', 'command'],
         usage='cog')
     async def help_command(self, ctx, cog='all'):
 
@@ -125,9 +124,7 @@ class Embed(commands.Cog):
                 for comm in cog_commands:
                     commands_list += f'**{comm.name}** \n *{comm.description}*\n\n'
             pass
-            help_embed.add_field(
-                    name="Commands", value=commands_list, inline=False).add_field(
-                        name='\u200b', value='\u200b', inline=False)
+            help_embed.description = commands_list
         else:
 
             # If the cog was specified

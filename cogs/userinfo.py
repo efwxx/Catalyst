@@ -50,7 +50,7 @@ class Userinfo(commands.Cog):
             em.set_author(name=user, icon_url='https://i.imgur.com/RHagTDg.png')
             await ctx.send(embed=em)
 
-            await ctx.message.delete()
+#            await ctx.message.delete()
 
     @userinfo.command()
     async def avi(self, ctx, txt: str = None):
@@ -77,7 +77,7 @@ class Userinfo(commands.Cog):
         em = discord.Embed(colour=0x708DD0)
         em.set_image(url=avi)
         await ctx.send(embed=em)
-        await ctx.message.delete()
+#        await ctx.message.delete()
 
 
 def setup(bot):

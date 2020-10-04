@@ -4,7 +4,7 @@ from discord.ext import commands
 import keep_alive
 import os
 import replit
-import requests
+# import requests
 
 
 def get_prefix(client, message):
@@ -44,17 +44,16 @@ async def on_ready():
     for cog in cogs:
         bot.load_extension(cog)
     return
-    await bot.change_presence(
-        activity=discord.Activity(
-            type=discord.ActivityType.watching, name=f"28 servers!"))
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="For +help!"))
 
 
-#@bot.command()
+#@bot.command(name='slowmode', description='Limits the amount of messages sent in a specific timeframe')
 #async def slowmode(ctx, seconds: int):
 #    await ctx.channel.edit(slowmode_delay=seconds)
 #    await ctx.send(
 #        f"Set the slowmode delay in this channel to {seconds} seconds!")
 
+#    @commands.command(name='slowmode', description='limits the amount of messages sent in a specific timeframe')
 
 #@bot.command(name='userinfo', description='gets info on a user')
 #async def getname(ctx, member: discord.Member):
