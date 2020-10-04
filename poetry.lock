@@ -439,6 +439,14 @@ version = "0.4.1"
 
 [[package]]
 category = "main"
+description = "A very simple python library, used to format datetime with `*** time ago` statement. eg: \"3 hours ago\"."
+name = "timeago"
+optional = false
+python-versions = "*"
+version = "1.0.14"
+
+[[package]]
+category = "main"
 description = "An API and command-line toolset for Twitter (twitter.com)"
 name = "twitter"
 optional = false
@@ -521,7 +529,7 @@ python-versions = "*"
 version = "2020.9.20"
 
 [metadata]
-content-hash = "926fe1e382b71c7a5d6dbcc25dac1195548f86cfd690844c7bc3d438f0561312"
+content-hash = "bfea08ec3e092b96272c25d0d29ae036aa2832cb7bb546cebce1c3d7ff73a14f"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -753,6 +761,9 @@ tango-shared-core = [
 tango-voting = [
     {file = "tango-voting-0.4.1.tar.gz", hash = "sha256:cba43610d8411943a5ff4c33673659a8eeb4f7e4b0949cdae214b1cf71896054"},
     {file = "tango_voting-0.4.1-py3-none-any.whl", hash = "sha256:d532f4869ccf10de2f4e52b96ede46821e1b8f592e70ec0155c1ea4cb8819950"},
+]
+timeago = [
+    {file = "timeago-1.0.14.tar.gz", hash = "sha256:4308d0123a21c778e0ac66fb68e09c15ab6a006e152f8840902575b48aac373d"},
 ]
 twitter = [
     {file = "twitter-1.18.0-py2.py3-none-any.whl", hash = "sha256:52545fd3b70d3d3807d3ce62d1a256727856d784d1630d64dedcc643aaf0b908"},

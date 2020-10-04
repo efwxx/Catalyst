@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from common import timeago_from_now
 
 '''Module for the info command.'''
 
@@ -27,6 +28,10 @@ class Userinfo(commands.Cog):
                     return
             else:
                 user = ctx.message.author
+            
+            # Calculating the joined ago
+            created = timeago_from_now(user.created_at)
+            joined = timeago_from_now(user.joined_at)
 
             avi = user.avatar_url_as(static_format='png')
             if isinstance(user, discord.Member):
@@ -39,15 +44,15 @@ class Userinfo(commands.Cog):
             em.add_field(name='User ID', value=user.id, inline=True)
             if isinstance(user, discord.Member):
                 em.add_field(name='Nick', value=user.nick, inline=True)
-                em.add_field(name='Status', value=user.status, inline=True)
+                em.add_field(name='Status', value=str(user.status).capitalize(), inline=True)
                 em.add_field(name='In Voice', value=voice_state, inline=True)
                 em.add_field(name='Game', value=user.activity, inline=True)
                 em.add_field(name='Highest Role', value=role, inline=True)
-            em.add_field(name='Account Created', value=user.created_at.__format__('%A, %d. %B %Y @ %H:%M:%S'))
+            em.add_field(name='Account Created', value=user.created_at.__format__('%A, %d. %B %Y @ %H:%M:%S') + f" ({created})")
             if isinstance(user, discord.Member):
-                em.add_field(name='Join Date', value=user.joined_at.__format__('%A, %d. %B %Y @ %H:%M:%S'))
+                em.add_field(name='Join Date', value=user.joined_at.__format__('%A, %d. %B %Y @ %H:%M:%S') + f" ({joined})")
             em.set_thumbnail(url=avi)
-            em.set_author(name=user, icon_url='https://i.imgur.com/RHagTDg.png')
+            em.set_author(name=user, icon_url=user.avatar_url)
             await ctx.send(embed=em)
 
 #            await ctx.message.delete()

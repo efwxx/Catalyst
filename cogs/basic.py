@@ -28,7 +28,7 @@ class Basic(commands.Cog):
         return
 
     @commands.command(
-        name='say',
+        name='say [text]',
         description='The say command\n',
         usage='<text>')
     async def say_command(self, ctx):
