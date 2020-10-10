@@ -43,8 +43,7 @@ class Embed(commands.Cog):
 
     @commands.command(
         name='embed',
-        description='The embed command!',
-    )
+        description='The embed command!')
     async def embed_command(self, ctx):
 
         # Define a check function that validates the message received by the bot

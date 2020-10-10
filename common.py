@@ -14,7 +14,7 @@ def error_embed(ctx, error) -> discord.Embed:
         text=f'Invoked by {ctx.message.author.name}',
         icon_url=ctx.author.avatar_url
     )
-    return embed
+    return embed#
 
 def datetime_to_timestamp(obj : datetime.datetime) -> int:
     """Converts a datetime object to a UNIX timestamp."""

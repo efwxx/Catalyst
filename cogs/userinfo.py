@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from common import timeago_from_now
+from common import timeago_from_now, error_embed
 
 '''Module for the info command.'''
 
@@ -24,7 +24,7 @@ class Userinfo(commands.Cog):
                 if not user:
                     user = self.bot.get_user(int(name))
                 if not user:
-                    await ctx.send(self.bot.bot_prefix + 'Could not find user.')
+                    await ctx.send(embed=error_embed(ctx,"Could not find the user you are looking for."))
                     return
             else:
                 user = ctx.message.author
@@ -46,7 +46,7 @@ class Userinfo(commands.Cog):
                 em.add_field(name='Nick', value=user.nick, inline=True)
                 em.add_field(name='Status', value=str(user.status).capitalize(), inline=True)
                 em.add_field(name='In Voice', value=voice_state, inline=True)
-                em.add_field(name='Game', value=user.activity, inline=True)
+                em.add_field(name='Game', value=user.activity.name if "name" in dir(user.activity) else user.activity, inline=True)
                 em.add_field(name='Highest Role', value=role, inline=True)
             em.add_field(name='Account Created', value=user.created_at.__format__('%A, %d. %B %Y @ %H:%M:%S') + f" ({created})")
             if isinstance(user, discord.Member):
@@ -70,7 +70,7 @@ class Userinfo(commands.Cog):
             if not user:
                 user = self.bot.get_user(int(txt))
             if not user:
-                await ctx.send(self.bot.bot_prefix + 'Could not find user.')
+                await ctx.send('Could not find user.')
                 return
         else:
             user = ctx.message.author
