@@ -4,7 +4,9 @@ from discord.ext import commands
 import random
 from .embed import colours
 import aiohttp
+import asyncio
 import random
+from common import error_embed
 # The constant things
 OSU_QUESTIONS = [
     {
@@ -149,8 +151,8 @@ class OsuMirrorAPI():
     
     async def random_search(self):
         a=await self._json_request(self.mirror+"search", {
-            "offset" : random.randint(0,100),
-            "amount" : 10,
+            "offset" : random.randint(0,1000),
+            "amount" : 100,
             "status" : 1,
             "mode" : 0
         })
@@ -165,7 +167,8 @@ class OsuMirrorAPI():
             "beatmapset_id" : a["SetID"],
             "allowed_names" : [
                 a['Title'].lower(),
-                a["Title"].split("(")[0].lower() # Getting rid of stuff like "TV SIZE"
+                a["Title"].split("(")[0].lower(), # Getting rid of stuff like "TV SIZE"
+                a["Title"].lower().replace("(", "").replace(")", "")
             ],
             "difficulty" : 2
         }
@@ -175,9 +178,10 @@ class OsuCog(commands.Cog):
     """osu! Good game!!!"""
     def __init__(self, bot):
         self.bot = bot
-        self.mirror_api = OsuMirrorAPI("https://kacktaube.me/api/cheesegull/")
+        #self.mirror_api = OsuMirrorAPI("https://kacktaube.me/api/cheesegull/")
+        self.mirror_api = OsuMirrorAPI("https://hentai.ninja/api/")
     
-    @commands.command(name='maptrivia', description='an osu! map minigame\n')
+    @commands.command(name='maptrivia', description='an osu! map trivia minigame\n')
     async def map_trivia_command(self, ctx):
         """osu! guess the beatmap!"""
         def check(ms): # Sorry electro i stole this from your cog lmfao
@@ -206,7 +210,10 @@ class OsuCog(commands.Cog):
         embed.set_image(url = f"https://assets.ppy.sh/beatmaps/{curr_map['beatmapset_id']}/covers/cover.jpg")
         await ctx.send(embed=embed)
 
-        msg = await self.bot.wait_for('message', check=check)
+        try:
+            msg = await self.bot.wait_for('message', check=check, timeout=10)
+        except asyncio.TimeoutError:
+            return await ctx.send(embed = error_embed(ctx, "The time window of 10s for the answer has expired!"))
         if msg.content.lower() in curr_map["allowed_names"]:
             embed = discord.Embed(title=f"[Correct!] {curr_map['formal_name']}", colour=colours["GREEN"], url=f"https://ussr.pl/b/{curr_map['beatmap_id']}")
             embed.set_image(url = f"https://assets.ppy.sh/beatmaps/{curr_map['beatmapset_id']}/covers/cover.jpg")
