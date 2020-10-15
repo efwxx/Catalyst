@@ -5,7 +5,6 @@ import random
 from .embed import colours
 import aiohttp
 import asyncio
-import random
 from common import error_embed
 # The constant things
 OSU_QUESTIONS = [

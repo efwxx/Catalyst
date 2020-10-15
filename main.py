@@ -30,8 +30,8 @@ bot = commands.Bot(
 
 # case_insensitive=True is used as the commands are case sensitive by default
 
-cogs = ['cogs.fun', 'cogs.basic', 'cogs.embed', 'cogs.moderation', 'cogs.userinfo', 'cogs.serverinfo']
-
+cogs = ['cogs.fun', 'cogs.basic', 'cogs.embed', 'cogs.userinfo', 'cogs.serverinfo']
+# extra cog: , 'cogs.moderation'
 #cogs to be loaded later, 'cogs.userinfo' and 'cogs.music'
 
 @bot.event
@@ -43,8 +43,9 @@ async def on_ready():
     # Make sure to do this before loading the cogs
     for cog in cogs:
         bot.load_extension(cog)
+        await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=""))
     return
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="For +help!"))
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=""))
 
 
 #@bot.command(name='slowmode', description='Limits the amount of messages sent in a specific timeframe')
