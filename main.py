@@ -9,9 +9,7 @@ import replit
 
 def get_prefix(client, message):
 
-    prefixes = [
-        '+'
-    ]  # sets the prefixes, u can keep it as an array of only 1 item if you need only one prefix
+    prefixes = ['+']  # sets the prefixes, u can keep it as an array of only 1 item if you need only one prefix
 
     if not message.guild:
         prefixes = ['+']  # Only allow '+' as a prefix when in DMs
@@ -23,14 +21,16 @@ def get_prefix(client, message):
 bot = commands.Bot(
     # Create a new bot
     command_prefix=get_prefix,  # Set the prefix
-    description='A moderation and fun bot',  # Set a description for the bot
+    description='A simple and fun bot',  # Set a description for the bot
     owner_id=612469019173453848,  # Your unique User ID
     case_insensitive=True  # Make the commands case insensitive
 )
 
 # case_insensitive=True is used as the commands are case sensitive by default
 
-cogs = ['cogs.fun', 'cogs.basic', 'cogs.embed', 'cogs.moderation', 'cogs.userinfo', 'cogs.serverinfo']
+cogs = ['cogs.fun', 'cogs.basic', 'cogs.embed', 'cogs.userinfo', 'cogs.serverinfo']
+
+#add 'cogs.moderation' when needed.
 
 #cogs to be loaded later, 'cogs.userinfo' and 'cogs.music'
 
@@ -43,17 +43,19 @@ async def on_ready():
     # Make sure to do this before loading the cogs
     for cog in cogs:
         bot.load_extension(cog)
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="+help"))
     return
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="For +help!"))
 
+@bot.command(name='slowmode', description='Limits the amount of messages sent in a specific timeframe')
+async def slowmode(ctx, seconds: int):
+    await ctx.channel.edit(slowmode_delay=seconds)
+    await ctx.send(
+        f"Set the slowmode delay in this channel to {seconds} seconds!")
 
-#@bot.command(name='slowmode', description='Limits the amount of messages sent in a specific timeframe')
-#async def slowmode(ctx, seconds: int):
-#    await ctx.channel.edit(slowmode_delay=seconds)
-#    await ctx.send(
-#        f"Set the slowmode delay in this channel to {seconds} seconds!")
-
-#    @commands.command(name='slowmode', description='limits the amount of messages sent in a specific timeframe')
+@bot.command(name='invite', description='sends the bot invite link\n')
+async def on_message(message):
+    if message.content.find("+invite") != -1:
+      await message.channel.send("here's the invite link for the bot: **https://bit.ly/30dc0Es**") 
 
 #@bot.command(name='userinfo', description='gets info on a user')
 #async def getname(ctx, member: discord.Member):
