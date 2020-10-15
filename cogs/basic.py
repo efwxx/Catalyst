@@ -1,5 +1,7 @@
 from discord.ext import commands
+import discord
 from datetime import datetime as d
+from .embed import colours
 
 
 class Basic(commands.Cog):
@@ -26,21 +28,23 @@ class Basic(commands.Cog):
         # It depends usually on your internet connection speed
 
         return
-
-    @commands.command(
-        name='invite', description='sends the bot invite link\n')
+    
+    @commands.command(name="invite", description="Sends an invite to the bot.")
     async def invite_command(self, ctx):
-        start = d.timestamp(d.now())
-        # Gets the timestamp when the command was used
+        # YA
+        embed = discord.Embed(
+            title = "Invite Catalyst!",
+            description="""**About Catalyst**
+Catalyst is a Discord bot made with love for every community, our goal is for Catalyst to fit into almost every community here on Discord. The bot was developed by AlphaZero, ElectroSonic, RealistikDash and Vultra using Phyton.
 
-        msg = await ctx.send(content='Pinging')
-        # Sends a message to the user in the channel the message with the command was received.
-        # Notifies the user that pinging has started
-
-        await msg.edit(
-            content=
-            f'Pong!\nOne message round-trip took {round((d.timestamp(d.now())-start) * 1000, 2)}ms.'
+**Invite the Discord bot to your own server(s) using this link provided below:**
+https://bit.ly/30dc0Es""",
+            colour=colours["BLUE"]
         )
+        embed.set_thumbnail(url = self.bot.user.avatar_url)
+        embed.set_footer(icon_url =ctx.author.avatar_url, text=f"Requested by {ctx.author.name}")
+        await ctx.send(embed = embed)
+#the code for some reason doesnt have bot defined
   #  @commands.command(
   #      name='say [text]',
   #      description='The say command\n',

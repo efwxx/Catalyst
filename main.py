@@ -45,7 +45,7 @@ async def on_ready():
         bot.load_extension(cog)
         await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=""))
     return
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=""))
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="+help!"))
 
 
 #@bot.command(name='slowmode', description='Limits the amount of messages sent in a specific timeframe')
