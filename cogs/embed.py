@@ -121,7 +121,7 @@ class Embed(commands.Cog):
                 cog_commands = self.bot.get_cog(cog).get_commands()
                 
                 for comm in cog_commands:
-                    commands_list += f'**{comm.name}** \n *{comm.description}*\n\n'
+                    commands_list += f'**{comm.name}** \n {comm.description}\n\n'
             pass
             help_embed.description = commands_list
         else:

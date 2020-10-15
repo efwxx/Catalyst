@@ -34,11 +34,9 @@ class Basic(commands.Cog):
         # YA
         embed = discord.Embed(
             title = "Invite Catalyst!",
-            description="""**About Catalyst**
-Catalyst is a Discord bot made with love for every community, our goal is for Catalyst to fit into almost every community here on Discord. The bot was developed by AlphaZero, ElectroSonic, RealistikDash and Vultra using Phyton.
+            description="""Catalyst is a Discord bot made with love for every community, our goal is for Catalyst to fit into almost every community here on Discord. The bot was developed by AlphaZero, ElectroSonic, RealistikDash and Vultra using Phyton.
 
-**Invite the Discord bot to your own server(s) using this link provided below:**
-https://bit.ly/30dc0Es""",
+**Invite the Discord bot to your own server(s) using this link:** https://bit.ly/30dc0Es""",
             colour=colours["BLUE"]
         )
         embed.set_thumbnail(url = self.bot.user.avatar_url)
