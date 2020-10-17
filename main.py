@@ -5,6 +5,7 @@ import keep_alive
 import os
 import replit
 # import requests
+import asyncio
 
 
 def get_prefix(client, message):
@@ -44,8 +45,14 @@ async def on_ready():
     for cog in cogs:
         bot.load_extension(cog)
         await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=""))
-    return
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="+help!"))
+
+    while True:
+        for i in range(1):
+            if i:
+                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name="+help!"))
+            else:
+                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="over {} servers!".format(len(bot.guilds))))
+            await asyncio.sleep(60)
 
 
 #@bot.command(name='slowmode', description='Limits the amount of messages sent in a specific timeframe')

@@ -136,6 +136,22 @@ OSU_QUESTIONS = [
     }
 ]
 
+OTHER_PERSON_DOES_POW = [
+    "**{0}** has been elminated by **{1}** using a Diamond Sword",
+    "**{1}** struck **{0}** with lightning.",
+    "**{0}** was slain by **{1}**",
+    "**{0}** had his Minecraft account hacked by **{1}**",
+    "**{1}** tried to kill **{0}** but failed miserably and ended up getting arrested.",
+    "**{1}** attempted to murder **{0}** but failed.",
+    "**{1}** tried killing **{0}** using a bomb, but ended in himself dying aswell.",
+    "**{1}** attacked **{0}** using a wooden pickaxe but lost the fight, ending in him dying.",
+    "**{1}** tried attacking **{0}** after dying to him in a video game."
+]
+
+SELF_POW = [
+    "**{0}** tried attacking himself but failed miserably."
+]
+
 class OsuMirrorAPI():
     """Cool api wrapper for working with the osu cheesegull api made by me."""
     def __init__(self, mirror : str):
@@ -220,6 +236,26 @@ class OsuCog(commands.Cog):
             await ctx.send(embed=embed)
         else:
             await ctx.send("Incorrect, shame on you!")
+    
+    @commands.command(name="attack")
+    async def attack_command(self, ctx):
+        """Attack your friends in fun and creative ways!"""
+        mentions = ctx.message.mentions
+        mentioned_user = None
+        # if user is not passed, we use the invoker himeslf
+        if len(mentions) == 0:
+            mentioned_user = ctx.author
+        else:
+            mentioned_user = mentions[0]
+        
+        #Check if invoker is author and decide message on that.
+        message = random.choice(SELF_POW) if mentioned_user == ctx.author else random.choice(OTHER_PERSON_DOES_POW)
+        if mentioned_user == ctx.author:
+            message = message.format(ctx.author.name)
+        else:
+            message = message.format(mentioned_user.name, ctx.author.name)
+        
+        await ctx.send(message)
 
 def setup(bot):
     bot.add_cog(OsuCog(bot))
