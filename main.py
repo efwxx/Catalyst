@@ -25,14 +25,14 @@ bot = commands.Bot(
     # Create a new bot
     command_prefix=get_prefix,  # Set the prefix
     description='A moderation and fun bot',  # Set a description for the bot
-    owner_id=612469019173453848,  # Your unique User ID
+    owner_id=714422115960488017,  # Your unique User ID
     case_insensitive=True  # Make the commands case insensitive
 )
 
 # case_insensitive=True is used as the commands are case sensitive by default
 
-cogs = ['cogs.fun', 'cogs.basic', 'cogs.embed', 'cogs.userinfo', 'cogs.serverinfo']
-# extra cog: , 'cogs.moderation'
+cogs = ['cogs.fun', 'cogs.basic', 'cogs.embed', 'cogs.userinfo', 'cogs.serverinfo', 'cogs.moderation']
+# extra cog: none available
 #cogs to be loaded later, 'cogs.userinfo' and 'cogs.music'
 
 @bot.event
