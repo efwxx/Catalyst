@@ -33,13 +33,16 @@ class Basic(commands.Cog):
         # YA
         embed = discord.Embed(
             title="Invite Catalyst!",
-            description="""Hosted via a flask server on repl.it, This bot was made with love for every community, our goal is for Catalyst to fit into almost every community here on Discord. The bot was developed by AlphaZero, ElectroSonic, RealistikDash and Vultra using Python.
+            description="""Hosted via a flask server on replit, This bot was made with love for every community, our goal is for Catalyst to fit into almost every community here on Discord. The bot was developed by ElectroSonic (Electro#8628) and RealistikDash(RealistikDash#0077) using Python.
 
 **Invite the Discord bot to your own server(s) using this link:** 
-https://bit.ly/30dc0Es
+https://bit.ly/3tjRuhc
+
+**Website:**
+https://catalystbot.cf
 
 **Support server:**
-https://discord.gg/gdps""",
+https://discord.gg/jPa4t4UNBU""",
             colour=colours["BLUE"])
         embed.set_thumbnail(url=self.bot.user.avatar_url)
         embed.set_footer(
